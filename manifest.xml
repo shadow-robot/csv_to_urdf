@@ -1,0 +1,15 @@
+<package>
+  <description brief="csv_to_urdf">
+
+     csv_to_urdf
+
+  </description>
+  <author>Ugo Cupcic</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/csv_to_urdf</url>
+  <depend package="rospy"/>
+
+</package>
+
+

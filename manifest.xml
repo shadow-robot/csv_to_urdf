@@ -9,6 +9,7 @@
   <review status="unreviewed" notes=""/>
   <url>http://ros.org/wiki/csv_to_urdf</url>
   <depend package="rospy"/>
+  <depend package="rostest"/>
 
 </package>
 

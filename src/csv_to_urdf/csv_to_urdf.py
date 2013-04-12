@@ -17,7 +17,7 @@
 #
 
 import roslib; roslib.load_manifest('csv_to_urdf')
-from csv_to_urdf.element import Element
+from element import Element
 
 class CsvToUrdf(object):
     """

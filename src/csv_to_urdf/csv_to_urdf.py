@@ -26,44 +26,55 @@ class CsvToUrdf(object):
     def __init__(self, csv_path, urdf_path):
         """
         """
+        lines = None
         try:
-            file = open(csv_path, "r")
+            csv_file = open(csv_path, "r")
+            lines = csv_file.readlines()
+            csv_file.close()
         except:
             print "Couldn't open file: "+ csv_path
             return
 
-        self.all_lines = file.readlines()
-        file.close()
-
         #contains all the elements described in the csv file
         self.elements = []
 
-        #first line contains titles
         self.titles = []
-        first_line = True
-        for line in self.all_lines:
-            if first_line:
-                first_line = False
-                self.parse_titles_(line)
+        index = 0
+        while True:
+            line1 = lines[index]
+            line2 = lines[index + 1]
+            if index == 0:
+                #first line contains titles
+                self.parse_titles_(line1)
             else:
-                self.parse_line_(line)
+                self.parse_line_(line1, line2)
+
+            if index + 1 < len(lines) - 1:
+                index = index + 1
+            else:
+                break
 
         robot = self.to_urdf()
-        file = open(urdf_path, "w")
-        file.write(robot)
-        file.close()
+        urdf_file = open(urdf_path, "w")
+        urdf_file.write(robot)
+        urdf_file.close()
 
     def parse_titles_(self, line):
         splitted_line = line.split(";")
         for title in splitted_line:
             self.titles.append(self.clean_(title).upper() )
 
-    def parse_line_(self, line):
-        splitted_line = line.split(";")
-        data_map = dict()
-        for title, data in zip(self.titles, splitted_line):
-            data_map[title] = self.clean_(data)
-        self.elements.append( Element(data_map) )
+    def parse_line_(self, line1, line2):
+        splitted_line1 = line1.split(";")
+        splitted_line2 = line2.split(";")
+        data_map_1 = dict()
+        data_map_2 = dict()
+
+        for title, data1, data2 in zip(self.titles, splitted_line1, splitted_line2):
+            data_map_1[title] = self.clean_(data1)
+            data_map_2[title] = self.clean_(data2)
+
+        self.elements.append( Element(data_map_1, data_map_2) )
 
     def clean_(self, string):
         return string.strip(" ").strip("\n").strip("\t").strip()

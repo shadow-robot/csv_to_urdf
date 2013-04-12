@@ -1,0 +1,29 @@
+#!/usr/bin/env python
+#
+# Copyright 2011 Shadow Robot Company Ltd.
+#
+# This program is free software: you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by the Free
+# Software Foundation, either version 2 of the License, or (at your option)
+# any later version.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+# FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+# more details.
+#
+# You should have received a copy of the GNU General Public License along
+# with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+
+from csv_to_urdf import CsvToUrdf
+import argparse
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description ="Parses a csv file and creates an urdf robot description from it.")
+    parser.add_argument('--csv', help="Path to the csv file you want to parse.", required = True)
+    parser.add_argument('--urdf', help="Path to the urdf file you want to create.", required = True)
+
+    args = parser.parse_args()
+
+    csv_to_urdf = CsvToUrdf(args.csv, args.urdf)

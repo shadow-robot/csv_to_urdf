@@ -115,8 +115,4 @@ class CsvToUrdf(object):
 
         return robot
 
-if __name__ == "__main__":
-    csv_path = "test/robot.csv"
-    urdf_path = "test/robot.urdf.xacro"
-    csv_to_urdf = CsvToUrdf(csv_path, urdf_path)
 

@@ -25,6 +25,6 @@ if __name__ == "__main__":
     parser.add_argument('--csv', help="Path to the csv file you want to parse.", required = True)
     parser.add_argument('--urdf', help="Path to the urdf file you want to create.", required = False)
 
-    args = parser.parse_args()
+    args, unknown = parser.parse_known_args()
 
     csv_to_urdf = CsvToUrdf(args.csv, args.urdf)

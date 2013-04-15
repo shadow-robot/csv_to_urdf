@@ -19,27 +19,19 @@
 PKG = "csv_to_urdf"
 import roslib; roslib.load_manifest(PKG)
 import unittest
+import os
 
 from csv_to_urdf.csv_to_urdf import CsvToUrdf
 
 class TestCsvToUrdf(unittest.TestCase):
     def test_csv_to_urdf(self):
         csv_path = "test/robot.csv"
-        urdf_path = "test/robot_tmp.urdf.xacro"
-        correct_urdf_path = "test/robot_tmp.urdf.xacro"
-        csv_to_urdf = CsvToUrdf(csv_path, urdf_path)
+        urdf_path = "/tmp/robot_tmp.urdf"
+        CsvToUrdf(csv_path, urdf_path)
 
-        urdf = open(urdf_path)
-        urdf_lines = urdf.readlines()
-        urdf.close()
-
-        correct_urdf = open(correct_urdf_path)
-        correct_urdf_lines = correct_urdf.readlines()
-        correct_urdf.close()
-
-        for correct_urdf_l, urdf_l in zip(correct_urdf_lines, urdf_lines):
-            fail_msg = correct_urdf_l + " != " + urdf_l
-            self.assertEquals(urdf_l, correct_urdf_l, fail_msg)
+        # check if urdf is correct
+        if os.system("`rospack find urdf_parser`/bin/check_urdf /tmp/robot_tmp.urdf") != 0:
+            self.fail("urdf not correct")
 
 if __name__ == "__main__":
     import rostest

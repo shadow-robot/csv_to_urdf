@@ -18,6 +18,7 @@
 
 import roslib; roslib.load_manifest('csv_to_urdf')
 from element import Element
+import sys
 
 class CsvToUrdf(object):
     """
@@ -55,7 +56,10 @@ class CsvToUrdf(object):
                 break
 
         robot = self.to_urdf()
-        urdf_file = open(urdf_path, "w")
+        #simply outputs to the console if no path specified
+        urdf_file = sys.stdout
+        if urdf_path != None:
+            urdf_file = open(urdf_path, "w")
         urdf_file.write(robot)
         urdf_file.close()
 

@@ -16,7 +16,8 @@
 # with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from csv_to_urdf import CsvToUrdf
+import roslib; roslib.load_manifest("csv_to_urdf")
+from csv_to_urdf.csv_to_urdf import CsvToUrdf
 import argparse
 
 if __name__ == "__main__":
